@@ -1,5 +1,6 @@
 package br.com.magna.model;
 
+import java.lang.System.LoggerFinder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +10,11 @@ import br.com.magna.enumerator.enumEtnia;
 import br.com.magna.enumerator.enumGenero;
 
 public abstract class Pessoa {
-	private String nome;
-	private enumGenero genero;
-	private enumEtnia etnia;
-	private LocalDate dataDeNascimento;
-	private List<String> falas = new ArrayList<>();
+	protected String nome;
+	protected enumGenero genero;
+	protected enumEtnia etnia;
+	protected LocalDate dataDeNascimento;
+	protected List<String> falas = new ArrayList<>();
 
 	public void aprenderNovasFalas(String frase) {
 		this.falas.add(frase);
@@ -23,23 +24,30 @@ public abstract class Pessoa {
 		System.out.println("Andando...");
 	}
 
-	public void falar() {
-		pensar();
-		Scanner sc = new Scanner(System.in);
-		int escolha = sc.nextInt();
-		System.out.println(this.falas.get(escolha));
-		sc.close();
+	public void falar() throws IndexOutOfBoundsException  {
+		try {
+			pensar();
+			Scanner sc = new Scanner(System.in);
+			int escolha = sc.nextInt();
+			System.out.printf("%s: %s\n",this.nome ,this.falas.get(escolha-1));
+			sc.close();
+		} catch (IndexOutOfBoundsException e) {
+			
+			throw new IndexOutOfBoundsException("Voce ainda não aprendeu a falar essa frase, tente aprender antes");
+		}
+		
 	}
 
-	public void agarrar() {
+	public void pegar() {
 		System.out.println("Peguei..");
 	}
 
 	public void pensar() {
 
-		for (String string : falas) {
+		System.out.println("|PENSANDO.. HMM|");
+		for (int i = 0; i < falas.size(); i++) {
 
-			System.out.print(string);
+			System.out.printf("|%d - %23s|\n", i+1, falas.get(i));
 		}
 	}
 

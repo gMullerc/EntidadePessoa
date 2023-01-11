@@ -5,24 +5,22 @@ import br.com.magna.enumerator.enumSituacaoEscolar;
 
 public abstract class Cidadao extends Pessoa {
 
-	private String certidaoDeNascimento;
-	private String rg;
-	private String cpf;
-	private int contato;
-	private Endereco endereco;
-	private enumEscolaridade escolaridade;
-	private enumSituacaoEscolar situacaoEscolar;
+	protected String certidaoDeNascimento;
+	protected String rg;
+	protected String cpf;
+	protected int contato;
+	protected Endereco endereco;
+	protected String estadoCivil;
+	protected enumEscolaridade escolaridade;
+	protected enumSituacaoEscolar situacaoEscolar;
 
 	public void matricularEmUmaInstituicao(enumEscolaridade i) throws Exception {
-		try {
-
-			if (this.situacaoEscolar == enumSituacaoEscolar.Completo
-					|| this.situacaoEscolar == enumSituacaoEscolar.Incompleto) {
+	
+			if (this.situacaoEscolar == enumSituacaoEscolar.Cursando) {
 				this.escolaridade = i;
-			}
 
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
+			}else{
+				System.out.println("Você já esta matriculado em uma instituicao");
+			}
 	}
 }
